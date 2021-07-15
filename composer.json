@@ -1,0 +1,30 @@
+{
+    "name": "wefabric/form-cache",
+    "description": "Laravel package to cache form data for a period of time",
+    "keywords": [
+        "wefabric",
+        "addresses",
+        "postcode",
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leo Flapper",
+            "email": "leo@wefabric.nl"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Wefabric\\FormCache\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wefabric\\FormCache\\Providers\\ServiceProvider"
+            ]
+        }
+    }
+}
