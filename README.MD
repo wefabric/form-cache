@@ -22,6 +22,11 @@ Migrate the Database:
 php artisan migrate
 ```
 
+Add the form cache garbage collector command to App\\Console\\Kernel. It will be executed on the default job connection. Add the parameter '--now' to run it immediately.
+```php
+// Form cache
+$schedule->command('form-cache:garbage-collection')->everyFiveMinutes();
+```
 
 ## Usage
 In this example we will use a Livewire component to save form data to the database cache.
@@ -80,3 +85,5 @@ class MyForm extends Component
     }
 }
 ```
+
+To set the cache expire date, edit the 'expires_after' in the form-cache config.
