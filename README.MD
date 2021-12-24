@@ -42,7 +42,6 @@ To exclude properties you can add the property name to the protected property 'e
 Example code:
 
 ```php
-// in app/Providers/AuthServiceProvider.php
 
 use Livewire\Component;
 use Wefabric\FormCache\Concerns\UsesFormCaches;
