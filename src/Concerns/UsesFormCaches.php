@@ -19,14 +19,24 @@ trait UsesFormCaches
         'passwordConfirmation'
     ];
 
+
+    protected string $formCacheKey;
+
     /**
-     * @param string $form
-     * @return bool
-     * @throws \Exception
+     * Exclude properties from the form cache
+     * @var array
      */
-    private function saveToFormCache(string $form): bool
+    protected array $excludeFromFormCache = [
+
+    ];
+
+    /**
+     * @param string $formCacheKey
+     * @return bool
+     */
+    private function saveToFormCache(string $formCacheKey = ''): bool
     {
-        $formCache = new FormCache($form);
+        $formCache = $this->getFormCache($formCacheKey);
         $formCache = $formCache->get();
         $formData  = $this->getFormData();
 
@@ -55,12 +65,11 @@ trait UsesFormCaches
     }
 
     /**
-     * @param string $form
-     * @throws \Exception
+     * @param string $formCacheKey
      */
-    private function fillFromFormCache(string $form)
+    private function fillFromFormCache(string $formCacheKey = ''): void
     {
-        $formCache = new FormCache($form);
+        $formCache = $this->getFormCache($formCacheKey);
         $formCache = $formCache->get();
         if($formCache->form_data) {
             foreach ($formCache->form_data as $key => $value) {
@@ -70,19 +79,34 @@ trait UsesFormCaches
                 if(!in_array($key, $this->excludeFromFormCache)) {
                     $this->$key = $value;
                 }
-
             }
         }
     }
 
     /**
-     * @param string $form
-     * @return bool|null
-     * @throws \Exception
+     * @param string $formCacheKey
+     * @return bool
      */
-    public function deleteFormData(string $form)
+    public function deleteFormData(string $formCacheKey = ''): bool
     {
-        $formCache = new FormCache($form);
-        return $formCache->delete();
+        $formCache = $this->getFormCache($formCacheKey);
+        return (bool)$formCache->delete();
+    }
+
+    public function getFormCacheKey(): string
+    {
+        if(!$this->formCacheKey) {
+            throw new \Exception('Did you set the "formCacheKey" in your form?');
+        }
+        return $this->formCacheKey;
+    }
+
+    public function getFormCache(string $formCacheKey = ''): FormCache
+    {
+        if(!$formCacheKey) {
+            $formCacheKey = $this->getFormCacheKey();
+        }
+
+        return new FormCache($formCacheKey);
     }
 }
