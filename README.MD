@@ -6,7 +6,7 @@ Laravel package to cache form data for a period of time.
 ## Installation
 This package can be installed through Composer.
 ```bash
-composer require wefabric/form-cache`
+composer require wefabric/form-cache
 ```
   
 Publish the Configuration and migration files with the following command:
