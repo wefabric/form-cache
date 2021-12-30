@@ -8,27 +8,7 @@ use Wefabric\FormCache\FormCache;
 
 trait UsesFormCaches
 {
-
-    /**
-     * Gets removed before saving
-     * @var string[]
-     */
-    protected array $protectedFormData = [
-        'password',
-        'password_confirmation',
-        'passwordConfirmation'
-    ];
-
-
     protected string $formCacheKey;
-
-    /**
-     * Exclude properties from the form cache
-     * @var array
-     */
-    protected array $excludeFromFormCache = [
-
-    ];
 
     /**
      * @param string $formCacheKey
